@@ -1,0 +1,93 @@
+Tests for the initialisation of arrays 
+	// TODO Test
+	/*
+	for (int i = 0; i < sps.numNodes; i++) {
+	    printf("Test int in sps.dist[%d] = %d\n", i, sps.dist[i]);
+	}
+	*/
+	
+	// printf("Test sps.src = %d\n", sps.src); TODO Test
+
+
+Tests for finding the unexplored vertex with min distance for loop
+
+//printf("Test in for loop v = [%d]\n", v); // TODO Test
+
+//printf("Test in for loop if statement v = [%d]\n", v); // TODO Test
+//printf("Test in for loop if statement minDist = [%d]\n", minDist);        
+
+// TODO Tests
+//printf("Test minDistIndex = %d\n", minDistIndex);
+//printf("Test minDist = %d\n\n", minDist);
+
+
+Testing if GraphOutIncident is working
+
+	    // Gets a list of all the children of the vertex currently being explored, with their corresponding edge weights
+	    //AdjList currExploredVertexChild = GraphOutIncident(g, minDistIndex);
+	    
+	    //TODO Test
+	    /*
+	    while (currExploredVertexChild != NULL) {
+	        printf("\nTest currExploredVertexChild->v = %d\n", currExploredVertexChild->v);
+	        printf("Test currExploredVertexChild->weight = %d\n\n", currExploredVertexChild->weight);
+	        currExploredVertexChild = currExploredVertexChild->next;
+	    }
+	    */
+
+
+
+
+
+
+
+Old edge relaxation
+        /*
+	    
+        for (int v = 0; v < sps.numNodes; v++) {
+            
+            
+            
+            
+            // Getting the vertex holding the (destination vertex, weight) pairs of the current vertex being considered for edge relaxation
+            while (currExploredVertexChild->v != v && currExploredVertexChild->next != NULL) {
+                currExploredVertexChild = currExploredVertexChild->next;
+            }
+            // Once you are out of this loop, currExploredVertexChild now points to the vertex v
+            printf("\nTest currExploredVertexChild->v = %d\n", currExploredVertexChild->v);
+            
+            // TODO segmentation error caused here
+            
+            int edgeWeight = currExploredVertexChild->weight;
+            
+            if ((sps.dist[v] == -1 || sps.dist[minDistIndex] + edgeWeight < sps.dist[v]) && GraphIsAdjacent(g, minDistIndex, v)) {
+                
+                // TODO check if adjacent and less than curr dist with &&
+                // I dont think we need to check if its adjacent because all nodes returned by GraphOutIncident() by default are adjacent
+                
+                
+                // need to clear every single old predecessor if you find a new smaller dist predecessor
+                
+                sps.dist[v] = sps.dist[minDistIndex] + edgeWeight;
+                
+                
+            }
+            
+            
+            
+            
+            
+            
+            
+            
+            if (sps.dist[minDistIndex] + edgeWeight == sps.dist[v]) {
+                
+                // need to do a sps.dist[minDistIndex] + // weight == sps.dist[v]
+                // if statement for the extra Dijkstra feature
+                
+            }
+            
+            
+            
+        }
+        */

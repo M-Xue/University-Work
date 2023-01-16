@@ -1,0 +1,115 @@
+#!/usr/bin/python3
+
+# COMP3311 22T3 Assignment 2
+# Print a list of character roles played by an actor/actress
+
+import sys
+import psycopg2
+import helpers
+
+### Globals
+
+db = None
+usage = f"Usage: {sys.argv[0]} FullName"
+
+### Command-line args
+
+if len(sys.argv) < 2:
+   print(usage)
+   exit(1)
+
+# process the command-line args ...
+
+### Queries
+
+### Manipulating database
+name = sys.argv[1]
+conn = None
+cur = None
+try:
+   # your code goes here
+   conn = psycopg2.connect("dbname=ass2")
+   cur = conn.cursor()
+
+   # * Get the IDs of all people with given name. They are ordered by IDs
+   cur.execute("""
+      select p.id
+      from People p
+      where p.name=%s
+      order by p.id;
+   """, (name,))
+   numPeople = cur.rowcount
+   peopleIDs = cur.fetchall() # in the form [(12343,), (12344,), (12346,)] <- random example IDs
+
+   # * Get the IDs of all actors/actresses with given name
+   cur.execute("""
+      select p.id
+      from People p
+         join Principals pp on (p.id=pp.person)
+      where p.name=%s 
+         and (pp.job='actor' 
+         or pp.job='actress' 
+         or pp.job='self')
+      group by p.id
+      order by p.id;
+   """, (name,))
+   numActors = cur.rowcount
+   actorIDs = cur.fetchall() # in the form [(12343,), (12344,), (12346,)] <- random example IDs
+
+   # * Perfomance Query
+   # * Get all perfomances of all actors/actresses with given name 
+   cur.execute("""
+      select p.id, pr.ROLE, m.title, m.YEAR
+      from People p
+         join Principals pp on (p.id=pp.person)
+         join PlaysRole pr on (pp.id=pr.inMovie)
+         join Movies m on (pp.movie=m.id)
+      where p.name=%s 
+         and (pp.job='actor' 
+         or pp.job='actress' 
+         or pp.job='self')
+      order by p.id, m.YEAR, m.title, pr.ROLE;
+   """, (name,))
+   numActs = cur.rowcount
+   performances = cur.fetchall()
+
+   # * Create dictionary holding all people with the given name as the key and an array to hold their perfomances. Should be inserted in order of ID
+   actingRoles = {ID[0]: [] for ID in peopleIDs}  # remember IDs are in the form [(12343,), (12344,), (12346,)] <- random example IDs. So you need to get the first and only element of each ID tuple
+   
+   # * Add a particular actor/actresses performance data into their respective array in the actingRoles dictionary (ordered by year -> title -> role name in the perfomances query)
+   for act in performances:
+      actingRoles[act[0]].append((act[1], act[2] ,act[3]))
+
+   # print(actingRoles)
+   # for act in performances:
+   #       print(act)
+
+   if numPeople == 0:
+      print("No such person")
+   elif numPeople == 1:
+      if numActors == 0:
+         print("No acting roles")
+      else:
+         for act in performances: # * Only one actor so all performances should be of that actor in the performance query
+            print(act[1] + " in " + act[2] + " (" + str(act[3]) + ")")
+
+   elif(numPeople > 1):
+      for idx,id in enumerate(actingRoles): # * Should be in order of ID (first query)
+         print(name + " #" + str(idx + 1))
+         
+         if (len(actingRoles[id]) == 0):
+            print("No acting roles")
+         else:
+            for role in actingRoles[id]: # * Should be ordered by year -> title -> role (third query)
+               print(role[0] + " in " + role[1] + " (" + str(role[2]) + ")")
+
+except Exception as err:
+   print("DB error: ", err)
+finally:
+   if cur:
+      cur.close()
+   if conn:
+      conn.close()
+   if db:
+      db.close()
+

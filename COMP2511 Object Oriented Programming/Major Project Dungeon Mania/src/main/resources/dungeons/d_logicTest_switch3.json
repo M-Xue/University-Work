@@ -1,0 +1,109 @@
+{
+    "entities": [
+    {
+        "type" : "player",
+        "x" : 0,
+        "y" : 0
+    },{
+        "type": "boulder",
+        "x": 1,
+        "y": 0
+    },{
+        "type" : "switch",
+        "x" : 2,
+        "y" : 0,
+        "logic" : "co_and"
+    },{
+        "type" : "wire",
+        "x" : 3,
+        "y" : -2
+    },{
+        "type" : "wire",
+        "x" : 3,
+        "y" : -1
+    },{
+        "type" : "wire",
+        "x" : 3,
+        "y" : 0
+    },{
+        "type" : "wire",
+        "x" : 3,
+        "y" : 1
+    },{
+        "type" : "wire",
+        "x" : 3,
+        "y" : 2
+    },{
+        "type" : "wire",
+        "x" : 3,
+        "y" : 3
+    },{
+        "type" : "wire",
+        "x" : 4,
+        "y" : 1
+    },{
+        "type" : "wire",
+        "x" : 4,
+        "y" : -2
+    },{
+        "type" : "wire",
+        "x" : 2,
+        "y" : -2
+    },{
+        "type" : "wire",
+        "x" : 2,
+        "y" : 2
+    },{
+        "type" : "switch",
+        "x" : 4,
+        "y" : 0,
+        "logic": "xor"
+    },{
+        "type" : "switch",
+        "x" : 4,
+        "y" : 2,
+        "logic": "and"
+    },{
+        "type" : "switch",
+        "x" : 2,
+        "y" : 3,
+        "logic": "co_and"
+    },{
+        "type" : "switch",
+        "x" : 1,
+        "y" : -2,
+        "logic": "and"
+    },{
+        "type" : "switch",
+        "x" : 5,
+        "y" : -2,
+        "logic": "co_and"
+    },{
+        "type" : "light_bulb_off",
+        "x" : 1,
+        "y" : -3,
+        "logic": "or"
+    },{
+        "type" : "light_bulb_off",
+        "x" : 1,
+        "y" : 3,
+        "logic": "or"
+    },{
+        "type" : "light_bulb_off",
+        "x" : 5,
+        "y" : 0,
+        "logic": "or"
+    },{
+        "type" : "light_bulb_off",
+        "x" : 5,
+        "y" : 2,
+        "logic": "or"
+    },{
+        "type" : "light_bulb_off",
+        "x" : 5,
+        "y" : -3,
+        "logic": "or"
+    }
+    ],
+    "goal-condition": {"goal": "exit"}
+}

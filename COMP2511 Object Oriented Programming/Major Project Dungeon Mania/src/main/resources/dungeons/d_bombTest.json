@@ -1,0 +1,155 @@
+{
+  "entities": [
+    {
+      "x": 0,
+      "y": 0,
+      "type": "player"
+    },
+    {
+      "x": -5,
+      "y": 5,
+      "type": "zombie_toast_spawner"
+    },
+    {
+      "x": 10,
+      "y": 0,
+      "type": "exit"
+    },
+    {
+      "x": 3,
+      "y": 0,
+      "type": "boulder"
+    },
+    {
+      "x": 5,
+      "y": 0,
+      "type": "switch"
+    },
+    {
+      "x": 4,
+      "y": 3,
+      "type": "switch"
+    },
+    {
+      "x": 3,
+      "y": 3,
+      "type": "boulder"
+    },
+    {
+      "x": 8,
+      "y": 3,
+      "type": "switch"
+    },
+    {
+      "x": 8,
+      "y": 4,
+      "type": "boulder"
+    },
+    {
+      "x": 3,
+      "y": 4,
+      "type": "treasure"
+    },
+    {
+      "x": 4,
+      "y": 4,
+      "type": "key",
+      "key": 1
+    },
+    {
+      "x": 9,
+      "y": 6,
+      "type": "key",
+      "key": 1
+    },
+    {
+      "x": 5,
+      "y": 4,
+      "type": "treasure"
+    },
+    {
+      "x": 1,
+      "y": 4,
+      "type": "invincibility_potion"
+    },
+    {
+      "x": 2,
+      "y": 4,
+      "type": "invisibility_potion"
+    },
+    {
+      "x": 4,
+      "y": 5,
+      "type": "door",
+      "key": 1
+    },
+    {
+      "x": 9,
+      "y": 4,
+      "type": "door",
+      "key": 1
+    },
+    {
+      "x": 3,
+      "y": -2,
+      "type": "wall"
+    },
+    {
+      "x": 5,
+      "y": -2,
+      "type": "wall"
+    },
+    {
+      "x": 5,
+      "y": -3,
+      "type": "wall"
+    },
+    {
+      "x": 6,
+      "y": -1,
+      "type": "sword"
+    },
+    {
+      "x": 6,
+      "y": 0,
+      "type": "wood"
+    },
+    {
+      "x": 6,
+      "y": 1,
+      "type": "arrow",
+      "key": 1
+    },
+    {
+      "type": "bomb",
+      "x": 1,
+      "y": 0
+    },
+    {
+      "type": "bomb",
+      "x": 2,
+      "y": 0
+    },
+    {
+      "type": "bomb",
+      "x": 3,
+      "y": -1
+    },
+    {
+      "type": "bomb",
+      "x": 2,
+      "y": -1
+    }
+  ],
+  "goal-condition": {
+    "goal": "AND",
+    "subgoals": [
+      {
+        "goal": "boulders"
+      },
+      {
+        "goal": "exit"
+      }
+    ]
+  }
+}

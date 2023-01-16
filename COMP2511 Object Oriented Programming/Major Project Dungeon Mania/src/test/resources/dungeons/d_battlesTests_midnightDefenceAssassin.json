@@ -1,0 +1,162 @@
+{
+  "entities": [
+    {
+      "x": 0,
+      "y": 0,
+      "type": "player"
+    },
+    {
+      "x": -1,
+      "y": 0,
+      "type": "sun_stone"
+    },
+    {
+      "x": -2,
+      "y": 0,
+      "type": "sun_stone"
+    },
+    {
+      "x": -3,
+      "y": 0,
+      "type": "sun_stone"
+    },
+    {
+      "x": -4,
+      "y": 0,
+      "type": "sun_stone"
+    },
+    {
+      "x": -5,
+      "y": 0,
+      "type": "sun_stone"
+    },
+    {
+      "x": -1,
+      "y": 1,
+      "type": "sword"
+    },
+    {
+      "x": -2,
+      "y": 1,
+      "type": "sword"
+    },
+    {
+      "x": -3,
+      "y": 1,
+      "type": "sword"
+    },
+    {
+      "x": -4,
+      "y": 1,
+      "type": "sword"
+    },
+    {
+      "x": -5,
+      "y": 1,
+      "type": "sword"
+    },
+    {
+      "x": 0,
+      "y": 10,
+      "type": "assassin"
+    },
+
+    {
+      "x": 0,
+      "y": 8,
+      "type": "exit"
+    },
+    
+    {
+      "x": 1,
+      "y": -1,
+      "type": "wood"
+    },
+    {
+      "x": 2,
+      "y": -1,
+      "type": "wood"
+    },
+    {
+      "x": 3,
+      "y": -1,
+      "type": "wood"
+    },
+    {
+      "x": 4,
+      "y": -1,
+      "type": "wood"
+    },
+    {
+      "x": 5,
+      "y": -1,
+      "type": "wood"
+    },
+    {
+      "x": 6,
+      "y": -1,
+      "type": "wood"
+    },
+    {
+      "x": 7,
+      "y": -1,
+      "type": "wood"
+    },
+    {
+      "x": 8,
+      "y": -1,
+      "type": "wood"
+    },
+    {
+      "x": 1,
+      "y": -2,
+      "type": "arrow"
+    },
+    {
+      "x": 2,
+      "y": -2,
+      "type": "arrow"
+    },
+    {
+      "x": 3,
+      "y": -2,
+      "type": "arrow"
+    },
+    {
+      "x": 4,
+      "y": -2,
+      "type": "arrow"
+    },
+    {
+      "x": 5,
+      "y": -2,
+      "type": "arrow"
+    },
+    {
+      "x": 6,
+      "y": -2,
+      "type": "arrow"
+    },
+    {
+      "x": 7,
+      "y": -2,
+      "type": "arrow"
+    },
+    {
+      "x": 8,
+      "y": -2,
+      "type": "arrow"
+    }
+  ],
+  "goal-condition": {
+    "goal": "AND",
+    "subgoals": [
+      {
+        "goal": "exit"
+      },
+      {
+        "goal": "enemies"
+      }
+    ]
+  }
+}

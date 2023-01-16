@@ -1,0 +1,85 @@
+{
+    "entities": [
+        {
+            "type" : "player",
+            "x" : 0,
+            "y" : 0
+        },
+        {
+            "type": "zombie_toast_spawner",
+            "x": -1,
+            "y": -1
+        },
+        {
+            "type": "zombie_toast_spawner",
+            "x": 0,
+            "y": -1
+        },
+        {
+            "type": "zombie_toast_spawner",
+            "x": 1,
+            "y": -1
+        },
+        {
+            "type": "zombie_toast_spawner",
+            "x": -1,
+            "y": 0
+        },
+        {
+            "type": "zombie_toast_spawner",
+            "x": 1,
+            "y": 0
+        },
+        {
+            "type": "zombie_toast_spawner",
+            "x": -1,
+            "y": 1
+        },
+        {
+            "type": "zombie_toast_spawner",
+            "x": 0,
+            "y": 1
+        },
+        {
+            "type": "zombie_toast_spawner",
+            "x": 1,
+            "y": 1
+        },
+        {
+            "type": "zombie_toast_spawner",
+            "x": 2,
+            "y": -1
+        },
+        {
+            "type": "zombie_toast_spawner",
+            "x": 2,
+            "y": 0
+        },
+        {
+            "type": "zombie_toast_spawner",
+            "x": 2,
+            "y": 1
+        },
+        {
+            "type": "zombie_toast_spawner",
+            "x": 3,
+            "y": -1
+        },
+        {
+            "type": "zombie_toast_spawner",
+            "x": 3,
+            "y": 0
+        },
+        {
+            "type": "zombie_toast_spawner",
+            "x": 3,
+            "y": 1
+        },
+        {
+            "type": "exit",
+            "x": 4,
+            "y": 0
+        }
+    ],
+    "goal-condition": {"goal": "exit"}
+}

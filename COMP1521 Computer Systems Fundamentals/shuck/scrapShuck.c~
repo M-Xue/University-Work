@@ -1,0 +1,918 @@
+    
+    
+    
+Auto tests
+
+1521 autotest shuck subset0
+1521 autotest shuck subset1
+1521 autotest shuck subset2
+1521 autotest shuck subset3
+1521 autotest shuck subset4
+1521 autotest shuck subset5    
+    
+    
+    
+cat shuck.c | grep include | wc -l
+
+// TODO pipeSectionCounter - 3 > 2 &&  test case: echo hello | echo | echo | echo
+
+            // TODO there is an issue here when it loops around for the test case 
+            // seq 15 45|grep 4|grep -v 42|tail -3
+
+// TODO pipeSectionCounter - 3 > 2 &&  test case: echo hello | echo | echo | echo
+
+seq 15 45|grep 4|grep -v 42|tail -3
+
+
+
+
+|tail -3
+
+
+
+grep -v 42|
+
+
+
+            FILE *f = fdopen(pipeFileDescriptors1[0] ,"r");
+            
+            char line[256];
+            fgets(line, sizeof line, f);
+            printf("output of fgets file is : %s\n", line);
+            
+            
+            return;
+
+
+            //close(pipeFileDescriptors2[0]); // TODO 
+
+
+
+            // test TODO
+    for (int i = 0; currCommandSection[i] != NULL; i++) {
+        
+        printf("currCommandSection[%d] = %s\n", i, currCommandSection[i]);
+        
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+seq 15 45|grep 4|tail -3
+
+seq 15 45|tail -3
+
+
+
+                    // test TODO
+                    for (int i = 0; words[i] != NULL; i++) {
+                        
+                        printf("words[%d] = %s\n", i, words[i]);
+                        
+                    }
+
+
+
+
+// test TODO
+    for (int i = 0; currCommandSection[i] != NULL; i++) {
+        
+        printf("currCommandSection[%d] = %s\n", i, currCommandSection[i]);
+        
+    }
+
+
+    
+    // subset 5 ////////////////////////////////////////////////////////////////
+    
+ ////////////////////////////////////////////////////////////////////////////////   
+    
+    posix_spawn_file_actions_init(&actions);
+        
+        
+        // We want to capture the output of the first process given in the 
+        // command.
+        // Hence, we close the read end of the process giving an output 
+        posix_spawn_file_actions_addclose(&actions, pipeFileDescriptors1[0]);
+        
+        // Replacing stdout of the output process with the write end 
+        // of the pipe
+        posix_spawn_file_actions_adddup2(&actions, pipeFileDescriptors1[1], 1); 
+        
+        
+        
+        
+        // SPAWNING FIRST COMMAND PROCESS 
+        // Counts how many words between each | command 
+        int pipeSectionCounter = 0;
+        while (strcmp(words[pipeSectionCounter], "|") != 0) {
+            
+            pipeSectionCounter++;
+            currWord++;
+            
+        }
+        pipeSectionCounter++; // Need to add one more for hold NULL at the end.
+        // currWord holds the number of words we have passes, including index 0.
+        
+        // Creating a temp commands string array to pass to posix_spawn.
+        char **currCommandSection = 
+        malloc(pipeSectionCounter * sizeof(*currCommandSection));
+        
+        // Copying the first command in words to the temp command array.
+        for (int i = 0; i < currWord; i++) {
+            currCommandSection[i] = words[i];
+        }
+        // Ending the temp commands array of strings with NULL.
+        currCommandSection[pipeSectionCounter - 1] = NULL;
+        
+        program = currCommandSection[0];
+        executingProgram(program, currCommandSection, path, environment, 
+        &actions);
+        
+        // Clearing the actions list so we can use it for the next child process
+        posix_spawn_file_actions_destroy(&actions);
+        
+        free(currCommandSection);
+        
+        
+        
+        // At this point, the output of the first process is captured in 
+        // pipe 1's buffer after we spawned the process. currWord is the array 
+        // index of the first | command in words.
+    
+    
+    
+/////////////////////////////////////////////////////////////////////////////////////    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+        // final process 
+        posix_spawn_file_actions_init(&actions);
+        
+        
+        
+        
+        
+        
+        // TODO do an if statmeent depending on how many pipes left, change which pipe is replacing stdin?
+        // depends which pipe we are curently on. If we have two more pipes, we give the final process pipe 2. if we only have
+        // one more porcess, we give it pipe 1
+        
+        
+        if (currPipes == 2) {
+            
+            
+            
+            
+        } else if (currPipes == 1) {
+            
+            
+            
+            
+        }
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        // final process wants to read pipe 1 so we close write end of pipe 1
+        posix_spawn_file_actions_addclose(&actions, pipeFileDescriptors1[1]);
+        
+        // replace stdin of final process with read end of pipe 1
+        posix_spawn_file_actions_adddup2(&actions, pipeFileDescriptors1[0], 0);
+        
+        
+        // reset actions for next process 
+        posix_spawn_file_actions_destroy(&actions);
+        
+        
+        
+        
+        
+        
+    
+    
+    
+    
+            // I think we still only need one action because we can only pass in one action at a time 
+        posix_spawn_file_actions_t actions2;
+        posix_spawn_file_actions_init (actions2);
+    
+    
+        
+
+    // TODO maybe count the number of pipes by using pipeFound++ instead
+    // change var name to numPipes and when u get to the last one, you can know which 
+    // command is the last one and make that one output stuff 
+    
+    
+    // before the last oner, just keep looping between pipes, openming and closing again and again 
+    // find the words[] array indexes between two | tokens??
+    
+    
+    // might need to change actions and give it as an argument to the redirection subset function 
+    // TODO numTokens still works even with pipes so you can still give numTokens into the 
+    // redirection function 
+    // TODO jokes maybe not if you are splitting the words array up because the 
+    // numTokens will reference an index array too far
+    
+    // note that the output is caught in the pipe buffer so we can keep it there 
+    // before we take it out and give it to the next redirection/execute command 
+    // function 
+    
+            
+        /*
+        
+        int pipeFileDescriptorsSet2[2];
+        pipe(pipeFileDescriptorsSet2);
+        */
+    
+    
+    
+                
+            /*
+            posix_spawn_file_actions_t actions2;
+            posix_spawn_file_actions_init (actions2);
+            */
+    
+    // TODO create and int counter to know which index on the words[] array you are currently in
+        // use this to figure out how big your replacement words[] array needs to be 
+        
+        // you might need to malloc it 
+        
+        
+        
+        
+        
+        
+        
+        
+        ////////////////////////////////////////////////////////////////////////
+        
+        
+        
+        // maybe put actions outside and make the first one happen no matter what 
+        
+        // create the action with the right pipe and then put that through to the redirection function
+        // or the execute program function 
+        // when you put it through the redirection function, create an if statement to check if actions is NULL
+        // if not, then add onto the actions 
+        
+        
+        
+        // We want to capture the output of the first process 
+        // Closing the read end of the process giving an output 
+        posix_spawn_file_actions_addclose(&actions, pipeFileDescriptors[0]);
+        
+        // Replacing stdout of the output process with the write end 
+        // of the pipe
+        posix_spawn_file_actions_adddup2(&actions, pipeFileDescriptors[1], 1); // TODO fix this bit hanging off 
+        
+        
+        
+        // TODO process has not been spawned yet 
+        
+        // TODO use execute program function here and pass in actions argument 
+        // TODO need the right words[] subarray
+        
+        
+        // TODO Need to use waitpid() here too
+        
+        // At this point, the output of the output process is captured in 
+        // the pipes buffer after we spawned the process 
+        
+        
+        
+        
+        // If currPipes > 1, then we are not at the last pipe command yet.
+        while (currPipes > 1) {
+            
+            
+            // Here we are deleting the actions instructions for posix_spawn 
+            // so we can create a new actions instructions for the new child 
+            // process that is going to take the output still in the 
+            // pipe buffer. 
+            posix_spawn_file_actions_destroy(&actions);
+            
+            
+            posix_spawn_file_actions_init(&actions);
+            
+            // We want the next child process to read the output of the pipe.
+            // Hence, we close the write end of the pipe in the child process.
+            // TODO do we need to reopen the pipe ??
+            posix_spawn_file_actions_addclose(&actions, pipeFileDescriptors[1]);
+            
+            
+            // Replacing stdin of the input receiving process with the read end 
+            // of the pipe
+            posix_spawn_file_actions_adddup2(&actions, pipeFileDescriptors[0], 0); // TODO fix this bit hanging off
+            
+            
+            
+            // TODO process has not been spawned yet 
+                       
+            // TODO use execute program function here and pass in actions argument 
+            // TODO need the right words[] subarray
+
+
+            // TODO Need to use waitpid() here too
+            
+            
+            
+            
+            // Here we want to capture the output of the same process
+            
+            // create the action with the right pipe and then put that through to the redirection function
+            // or the execute program function 
+            // when you put it through the redirection function, create an if statement to check if actions is NULL
+            // if not, then add onto the actions 
+            
+            posix_spawn_file_actions_t actions;
+            posix_spawn_file_actions_init(&actions);
+            
+            // We want to capture the output of the first process 
+            // Closing the read end of the process giving an output 
+            posix_spawn_file_actions_addclose(&actions, pipeFileDescriptors[0]);
+            
+            // Replacing stdout of the output process with the write end 
+            // of the pipe
+            posix_spawn_file_actions_adddup2(&actions, pipeFileDescriptors[1], 1); // TODO fix this bit hanging off 
+            
+            
+            
+            // TODO process has not been spawned yet 
+            
+            // TODO use execute program function here and pass in actions argument 
+            // TODO need the right words[] subarray
+            
+            
+            // TODO Need to use waitpid() here too
+            
+            // At this point, the output of the output process is captured in 
+            // the pipes buffer after we spawned the process 
+            
+            
+            
+            
+            
+            
+            
+            
+            // dont clear or close the pipe 
+            
+            
+            currPipes--;
+        }
+        
+        
+        ////////////////////////////////////////////////////////////////////////
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    /////////////////////////////////////////
+    
+    
+    if (numPipes > 0) {
+        
+        
+        // TODO change the description since we only use one pair of pipes now
+        
+       
+        // Creating two pairs of pipes (4 altogether). This allows us to send 
+        // outputs to a child process and recieve inputs from another child 
+        // process in the same process. 
+        
+        // This will be necessary if we have two or more instances of the pipe 
+        // command ( | ).
+        
+        
+        
+        int pipeFileDescriptors[2];
+        pipe(pipeFileDescriptors);
+        
+
+        
+        // currPipes refers to how many pipe commands we have not processed yet.
+        int currPipes = numPipes
+        
+        
+        // TODO create and int counter to know which index on the words[] array you are currently in
+        // use this to figure out how big your replacement words[] array needs to be 
+        
+        // you might need to malloc it 
+        
+        
+        
+        
+        
+        
+        
+        
+        ////////////////////////////////////////////////////////////////////////
+        
+        
+        
+        // maybe put actions outside and make the first one happen no matter what 
+        
+        // create the action with the right pipe and then put that through to the redirection function
+        // or the execute program function 
+        // when you put it through the redirection function, create an if statement to check if actions is NULL
+        // if not, then add onto the actions 
+        
+        posix_spawn_file_actions_t actions;
+        posix_spawn_file_actions_init(&actions);
+        
+        // We want to capture the output of the first process 
+        // Closing the read end of the process giving an output 
+        posix_spawn_file_actions_addclose(&actions, pipeFileDescriptors[0]);
+        
+        // Replacing stdout of the output process with the write end 
+        // of the pipe
+        posix_spawn_file_actions_adddup2(&actions, pipeFileDescriptors[1], 1); // TODO fix this bit hanging off 
+        
+        
+        
+        // TODO process has not been spawned yet 
+        
+        // TODO use execute program function here and pass in actions argument 
+        // TODO need the right words[] subarray
+        
+        
+        // TODO Need to use waitpid() here too
+        
+        // At this point, the output of the output process is captured in 
+        // the pipes buffer after we spawned the process 
+        
+        
+        
+        
+        // If currPipes > 1, then we are not at the last pipe command yet.
+        while (currPipes > 1) {
+            
+            
+            // Here we are deleting the actions instructions for posix_spawn 
+            // so we can create a new actions instructions for the new child 
+            // process that is going to take the output still in the 
+            // pipe buffer. 
+            posix_spawn_file_actions_destroy(&actions);
+            
+            
+            posix_spawn_file_actions_init(&actions);
+            
+            // We want the next child process to read the output of the pipe.
+            // Hence, we close the write end of the pipe in the child process.
+            // TODO do we need to reopen the pipe ??
+            posix_spawn_file_actions_addclose(&actions, pipeFileDescriptors[1]);
+            
+            
+            // Replacing stdin of the input receiving process with the read end 
+            // of the pipe
+            posix_spawn_file_actions_adddup2(&actions, pipeFileDescriptors[0], 0); // TODO fix this bit hanging off
+            
+            
+            
+            // TODO process has not been spawned yet 
+                       
+            // TODO use execute program function here and pass in actions argument 
+            // TODO need the right words[] subarray
+
+
+            // TODO Need to use waitpid() here too
+            
+            
+            
+            
+            // Here we want to capture the output of the same process
+            
+            // create the action with the right pipe and then put that through to the redirection function
+            // or the execute program function 
+            // when you put it through the redirection function, create an if statement to check if actions is NULL
+            // if not, then add onto the actions 
+            
+            posix_spawn_file_actions_t actions;
+            posix_spawn_file_actions_init(&actions);
+            
+            // We want to capture the output of the first process 
+            // Closing the read end of the process giving an output 
+            posix_spawn_file_actions_addclose(&actions, pipeFileDescriptors[0]);
+            
+            // Replacing stdout of the output process with the write end 
+            // of the pipe
+            posix_spawn_file_actions_adddup2(&actions, pipeFileDescriptors[1], 1); // TODO fix this bit hanging off 
+            
+            
+            
+            // TODO process has not been spawned yet 
+            
+            // TODO use execute program function here and pass in actions argument 
+            // TODO need the right words[] subarray
+            
+            
+            // TODO Need to use waitpid() here too
+            
+            // At this point, the output of the output process is captured in 
+            // the pipes buffer after we spawned the process 
+            
+            
+            
+            
+            
+            
+            
+            
+            // dont clear or close the pipe 
+            
+            
+            currPipes--;
+        }
+        
+        
+        ////////////////////////////////////////////////////////////////////////
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    }
+    
+    // TODO maybe you only need one pipe and just keep swapping the addclose and adddup2
+    
+    
+    
+    
+    
+
+    // TODO maybe count the number of pipes by using pipeFound++ instead
+    // change var name to numPipes and when u get to the last one, you can know which 
+    // command is the last one and make that one output stuff 
+    
+    
+    // before the last oner, just keep looping between pipes, openming and closing again and again 
+    // find the words[] array indexes between two | tokens??
+    
+    
+    // might need to change actions and give it as an argument to the redirection subset function 
+    // TODO numTokens still works even with pipes so you can still give numTokens into the 
+    // redirection function 
+    // TODO jokes maybe not if you are splitting the words array up because the 
+    // numTokens will reference an index array too far
+    
+    // note that the output is caught in the pipe buffer so we can keep it there 
+    // before we take it out and give it to the next redirection/execute command 
+    // function 
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    // subset 4 tests //////////////////////////////////////////////////////
+    
+            printf("words[0] = [%s], words[1] = [%s]\n", words[0], words[1]);
+            printf("After swap: words[0] = [%s], words[1] = [%s]\n", words[0], words[1]);
+            printf("After swap: words[0] = [%s], words[1] = [%s]\n", words[0], words[1]);
+    
+            printf("test werta\n");
+    
+        // TODO test
+    printf("In function: words[0] = [%s], words[1] = [%s]\n", words[0], words[1]);
+    
+    
+    
+    
+    old drafts
+                /*
+            // When we free the words array, it stops freeding when it meets 
+            // NULL. Hence, we need to free earlier if we are going to change
+            // where NULL is.
+            free(words[numTokens]);
+            free(words[numTokens - 1]);
+            words[numTokens - 2] = NULL;
+            */
+    
+    
+    // Since output redirection appending requires three 
+    // words (>, >, outputFile), there needs to be more than 3 words.
+    if (numTokens > 3) {
+        // This if statement handles if the redirection is ">> file.txt"
+        if (strrchr(words[numTokens - 3], '>') != NULL && 
+        strrchr(words[numTokens - 2], '>') != NULL) {
+            
+            
+            // Error check to see if the program was a builtin command
+            if (strcmp(program, "history") == 0 || strcmp(program, "cd") == 0 ||
+            strcmp(program, "pwd") == 0 || strcmp(program, "!") == 0) {
+                fprintf(stderr,
+                "%s: I/O redirection not permitted for builtin commands\n", 
+                program);
+                return;
+            }
+            
+            FILE *outputFile = fopen(words[numTokens - 1], "a+");
+            
+            
+            // Redirecting stdout into specified outputFile 
+            int outputFileDescriptor = fileno(outputFile);
+            
+            posix_spawn_file_actions_t actions;
+            posix_spawn_file_actions_init(&actions);
+            posix_spawn_file_actions_adddup2(&actions, outputFileDescriptor, 1);
+            
+            
+            // When we free the words array, it stops freeding when it meets 
+            // NULL. Hence, we need to free earlier if we are going to change
+            // where NULL is.
+            free(words[numTokens]);
+            free(words[numTokens - 1]);
+            free(words[numTokens - 2]);
+            words[numTokens - 3] = NULL;
+            
+            executingProgram(program, words, path, environment, &actions);
+            
+            fclose(outputFile);
+            posix_spawn_file_actions_destroy(&actions);
+            return;
+            
+            
+        }
+    }
+    
+            for (int j = 0; words[j] != NULL; j++) {
+            printf("words[%d] is [%s]\n", j, words[j]);
+        }
+        
+        for (int j = 0; j < 4; j++) {
+            printf("words[%d] is [%s]\n", j, words[j]);
+        }
+        
+        
+        free(words[numTokens]);
+        //free(words[numTokens - 1]);
+    
+            
+        for (int j = 0; words[j] != NULL; j++) {
+            printf("words[%d] is [%s]\n", j, words[j]);
+        }
+    
+    
+    
+    
+    
+// subset 2 tests //////////////////////////////////////////////////////////////
+// Reference: https://stackoverflow.com/questions/1640720/how-do-i-tell-if-the-c-function-atoi-failed-or-if-it-was-a-string-of-zeros/1640804#1640804
+    
+            printf("num = [%d]\n", num);
+    
+    
+    
+            printf("numCommands == [%d]\n", numCommands);
+            printf("printingLineStart == [%d]\n", printingLineStart);
+    
+    /*
+        int numChar = strlen(path) + strlen("/.shuck_history") + 2;
+        snprintf(pathToHistory, numChar, "%s/%s", path, ".shuck_history");
+        */
+    
+    
+    
+    
+    
+            printf("path to history is: %s\n", pathToHistory);
+    
+    
+    // TODO the !!!!! part ///////////////////////////////////////
+    
+    printf("test test test\n");
+    
+    // TODO test printf("num = %d\n", num);
+    
+    printf("i = %d\n", i);
+        printf("line = [%s]\n", line);
+    
+            //static char **tokenize(char *s, char *separators, char *special_chars)
+        
+        /*
+        for (int x = 0; commandInput[x] != NULL; x++) {
+            printf("commandInput[x] == [%s]\n", commandInput[x]);
+        }
+        */
+    
+    
+    
+////////////////////////////////////////////////////////////////////////////////    
+    
+    
+    
+    
+    
+    
+    //char *path = getenv("PATH");
+    
+    
+    //printf("test1\n");
+    //printf("test2\n");
+    
+    //printf("strcmp = %d\n",strcmp(program, "pwd"));
+
+
+    // TODO TESTS
+    /*
+    char pathname[PATH_MAX];
+    
+    getcwd(pathname, sizeof pathname);
+    printf("getcwd() returned %s\n", pathname);
+    
+    chdir("..");
+    getcwd(pathname, sizeof pathname);
+    printf("getcwd() returned %s\n", pathname);
+    
+    chdir("..");
+    getcwd(pathname, sizeof pathname);
+    printf("getcwd() returned %s\n", pathname);
+    
+    chdir("Desktop/shuck");
+    getcwd(pathname, sizeof pathname);
+    printf("getcwd() returned %s\n", pathname);
+    */
+
+
+    // create if statement here for if argv[1] is null because then we dont have a directory]
+    // TODO
+
+
+
+1521 autotest shuck subset4
+
+You need to type in this instead
+1521 autotest shuck subset[0-4]
+
+# aka
+1521 autotest shuck subset0
+
+# to test a specific test
+1521 autotest shuck subset1_121
+
+
+
+
+original subset1
+
+    int found = 0;
+    int i = 0;
+    while (path[i] != NULL) {
+        
+        int numChar = strlen(path[i]) + strlen(words[0]) + 2;
+        
+        snprintf(pathOfProgram, numChar, "%s/%s", path[i], program);
+        
+        
+        if (is_executable(pathOfProgram)) {
+            
+            found = 1;
+            break;
+        }
+        i++;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

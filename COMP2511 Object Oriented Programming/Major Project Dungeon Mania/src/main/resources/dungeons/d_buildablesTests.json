@@ -1,0 +1,202 @@
+{
+  "entities": [
+    {
+      "x": 1,
+      "y": 1,
+      "type": "player"
+    },
+    {
+      "x": 7,
+      "y": -7,
+      "type": "zombie_toast_spawner"
+    },
+    {
+      "x": 25,
+      "y": 20,
+      "type": "mercenary"
+    },
+
+    {
+      "x": 0,
+      "y": 10,
+      "type": "exit"
+    },
+    {
+      "x": 5,
+      "y": 7,
+      "type": "boulder"
+    },
+    {
+      "x": 5,
+      "y": 8,
+      "type": "switch"
+    },
+    {
+      "x": 7,
+      "y": 7,
+      "type": "switch"
+    },
+    {
+      "x": 6,
+      "y": 7,
+      "type": "boulder"
+    },
+    {
+      "x": 4,
+      "y": 0,
+      "type": "treasure"
+    },
+    {
+      "x": 5,
+      "y": 0,
+      "type": "treasure"
+    },
+    {
+      "x": 6,
+      "y": 0,
+      "type": "treasure"
+    },
+    {
+      "x": 7,
+      "y": 0,
+      "type": "treasure"
+    },
+    {
+      "x": 8,
+      "y": 0,
+      "type": "treasure"
+    },
+    {
+      "x": 5,
+      "y": 1,
+      "type": "key",
+      "key": 1
+    },
+    {
+      "x": 5,
+      "y": 5,
+      "type": "door",
+      "key": 1
+    },
+    {
+      "x": 7,
+      "y": 1,
+      "type": "key",
+      "key": 2
+    },
+    {
+      "x": 7,
+      "y": 5,
+      "type": "door",
+      "key": 2
+    },
+    {
+      "x": 2,
+      "y": 1,
+      "type": "invincibility_potion"
+    },
+    {
+      "x": 3,
+      "y": 1,
+      "type": "invisibility_potion"
+    },
+    {
+      "x": 4,
+      "y": 1,
+      "type": "sword"
+    },
+    {
+      "type": "bomb",
+      "x": 5,
+      "y": 10
+    },
+    {
+      "type": "bomb",
+      "x": 6,
+      "y": 10
+    },
+    {
+      "type": "bomb",
+      "x": 7,
+      "y": 10
+    },
+    {
+      "type": "bomb",
+      "x": 8,
+      "y": 10
+    },
+
+
+    {
+      "x": 1,
+      "y": 10,
+      "type": "wood"
+    },
+    {
+      "x": 2,
+      "y": 10,
+      "type": "wood"
+    },
+    {
+      "x": 3,
+      "y": 10,
+      "type": "wood"
+    },
+    {
+      "x": 4,
+      "y": 10,
+      "type": "wood"
+    },
+    {
+      "x": 1,
+      "y": 11,
+      "type": "arrow"
+    },
+    {
+      "x": 2,
+      "y": 11,
+      "type": "arrow"
+    },
+    {
+      "x": 3,
+      "y": 11,
+      "type": "arrow"
+    },
+    {
+      "x": 4,
+      "y": 11,
+      "type": "arrow"
+    },
+    {
+      "x": 1,
+      "y": 12,
+      "type": "arrow"
+    },
+    {
+      "x": 2,
+      "y": 12,
+      "type": "arrow"
+    },
+    {
+      "x": 3,
+      "y": 12,
+      "type": "arrow"
+    },
+    {
+      "x": 4,
+      "y": 12,
+      "type": "arrow"
+    }
+  ],
+  "goal-condition": {
+    "goal": "AND",
+    "subgoals": [
+      {
+        "goal": "boulders"
+      },
+      {
+        "goal": "treasure"
+      }
+    ]
+  }
+}

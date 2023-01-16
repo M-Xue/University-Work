@@ -1,0 +1,32 @@
+{
+  "entities": [
+    {
+      "x": 0,
+      "y": 0,
+      "type": "player"
+    },
+    {
+      "x": 3,
+      "y": 0,
+      "type": "bomb"
+    },
+    {
+      "x": 4,
+      "y": 0,
+      "type": "time_turner"
+    },
+    {
+      "x": 5,
+      "y": 0,
+      "type": "boulder"
+    },
+    {
+      "x": 6,
+      "y": 0,
+      "type": "switch"
+    }
+  ],
+  "goal-condition": {
+    "goal": "exit"
+  }
+}

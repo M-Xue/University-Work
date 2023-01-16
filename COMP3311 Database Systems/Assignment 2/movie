@@ -1,0 +1,166 @@
+#!/usr/bin/python3
+
+# COMP3311 22T3 Assignment 2
+# Print info about one movie; may need to choose
+
+import sys
+import psycopg2
+import helpers
+
+### Globals
+
+db = None
+usage = f"Usage: {sys.argv[0]} 'PartialMovieName'"
+
+### Command-line args
+
+if len(sys.argv) < 2:
+   print(usage)
+   exit(1)
+
+# process the command-line args ...
+
+### Queries
+
+### Manipulating database
+movieName = sys.argv[1]
+conn = None
+cur = None
+try:
+   # your code goes here
+   conn = psycopg2.connect("dbname=ass2")
+   cur = conn.cursor()
+
+   # * Get all movies that match the given partial title
+   cur.execute("""
+      select m.id, m.title, m.YEAR
+      from Movies m
+      where m.title ilike %s
+      order by m.title, m.YEAR;
+   """, ("%" + movieName + "%",))
+   numMatches = cur.rowcount
+   movieMatches = cur.fetchall()
+
+   if numMatches == 0:
+      print("No movie matching: 'No such movie'")
+   elif numMatches == 1:
+      chosenMovieId = movieMatches[0][0]
+
+      # * Get the ID, job and name of all staff that worked on chosen movie
+      cur.execute("""
+         select p.id, pp.job, p.name
+         from Movies m
+            join Principals pp on (m.id=pp.movie)
+            join People p on (pp.person=p.id)
+         where m.id=%s
+         order by pp.ord, p.name;
+      """, (chosenMovieId,))
+      staffTuples = cur.fetchall()
+      
+      # * Make dictionary holding staffs data, with the staff ID as the key
+      staffData = {staff[0]: [] for staff in staffTuples} 
+      for staff in staffTuples:
+         staffData[staff[0]].append(staff[1]) # Job in index 0
+         staffData[staff[0]].append(staff[2]) # Name in index 1
+
+      # * Get the ID and corresponding name of role of all actors/actresses/self. Don't need to order this query because the data will be appended to the dictionary based on person ID and the dictionary is already ordered.
+      cur.execute("""
+         select p.id, pr.ROLE
+         from Movies m
+            join Principals pp on (m.id=pp.movie)
+            join People p on (pp.person=p.id)
+            left join PlaysRole pr on (pr.inMovie=pp.id)
+         where m.id=%s
+            and (pp.job='actor' 
+            or pp.job='actress' 
+            or pp.job='self');
+      """, (chosenMovieId,))
+      actorTuples = cur.fetchall()
+
+      # * Add the name of role to the staffs dictionary key value pair array
+         # * NOTE: because we used left join, some actors/actresses/self who starred in films but don't have a corresponding PlaysRole entry get None in their tuple where the name of their role should be
+      for actor in actorTuples:
+         staffData[actor[0]].append(actor[1]) # Role in index 2
+
+      print(movieMatches[0][1] + " (" + str(movieMatches[0][2]) + ")")
+
+      for staff in staffData.values():
+         if staff[0] == "actor" or staff[0] == "actress" or staff[0] == "self": # * Print the actors/actresses/self
+            if staff[2] != None: 
+               print(staff[1] + " plays " + staff[2])
+            elif staff[2] == None:
+               print(staff[1] + " plays ???")
+            else:
+               print("ERROR ERROR ERROR ")
+         else:
+            print(staff[1] + ": " + staff[0]) # * Print the rest of the staff
+
+   elif numMatches > 1:
+      # * The case of multiple movies matching the given partial input
+
+      # * Create dictionary with the movie's order in the numbered list as the key the movie data as the value
+      movieOptions = {i:movieMatches[i-1] for i in range(1,numMatches+1)}
+
+      # * Selecting the movie
+      for idx,movie in enumerate(movieMatches):
+         print(str(idx+1) + ". " + movie[1] + " (" + str(movie[2]) + ")")
+      chosenMovie = movieOptions[int(input("Which movie? "))]
+      chosenMovieId = chosenMovie[0]
+
+
+      # * Covered above
+      cur.execute("""
+         select p.id, pp.job, p.name
+         from Movies m
+            join Principals pp on (m.id=pp.movie)
+            join People p on (pp.person=p.id)
+         where m.id=%s
+         order by pp.ord;
+      """, (chosenMovieId,))
+      staffTuples = cur.fetchall()
+      staffData = {staff[0]: [] for staff in staffTuples}
+
+      for staff in staffTuples:
+         staffData[staff[0]].append(staff[1]) # Job in index 0
+         staffData[staff[0]].append(staff[2]) # Name in index 1
+
+      cur.execute("""
+         select p.id, pr.ROLE
+         from Movies m
+            join Principals pp on (m.id=pp.movie)
+            join People p on (pp.person=p.id)
+            left join PlaysRole pr on (pr.inMovie=pp.id)
+         where m.id=%s
+            and (pp.job='actor' 
+            or pp.job='actress' 
+            or pp.job='self')
+         order by pp.ord;
+      """, (chosenMovieId,))
+      actorTuples = cur.fetchall()
+
+      for actor in actorTuples:
+         if len(actor) == 2:
+            staffData[actor[0]].append(actor[1]) # Role in index 2
+
+      print(chosenMovie[1] + " (" + str(chosenMovie[2]) + ")")
+
+      for staff in staffData.values():
+         if staff[0] == "actor" or staff[0] == "actress" or staff[0] == "self":
+            if staff[2] != None: 
+               print(staff[1] + " plays " + staff[2])
+            elif staff[2] == None:
+               print(staff[1] + " plays ???")
+            else:
+               print("ERROR ERROR ERROR ")
+         else:
+            print(staff[1] + ": " + staff[0])
+
+except Exception as err:
+   print("DB error: ", err)
+finally:
+   if cur:
+      cur.close()
+   if conn:
+      conn.close()
+   if db:
+      db.close()

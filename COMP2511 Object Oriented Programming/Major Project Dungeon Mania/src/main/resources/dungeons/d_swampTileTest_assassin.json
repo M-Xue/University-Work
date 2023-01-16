@@ -1,0 +1,26 @@
+{
+    "entities": [
+        {
+            "type" : "player",
+            "x" : 9,
+            "y" : 4
+        },
+        {
+            "type": "assassin",
+            "x": 7,
+            "y": 4
+        },
+        {
+            "type": "exit",
+            "x": 0,
+            "y": 0
+        },
+        {
+            "type": "swamp_tile",
+            "movement_factor": 3,
+            "x": 8,
+            "y": 4
+        }
+    ],
+    "goal-condition": {"goal": "exit"}
+}

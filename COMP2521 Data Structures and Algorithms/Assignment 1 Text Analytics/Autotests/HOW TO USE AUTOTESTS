@@ -1,0 +1,14 @@
+The testDict.c program exists for you to test your Dictionary ADT. At the moment it only contains one test - you can add more comprehensive tests to it if you wish. We recommend testing your Dictionary ADT before using it in your tw program.
+
+The check.sh script generates the expected output for each data file using a giant Unix pipeline (if it doesn't already exist), runs the ./tw program on each data file and compares the expected output with the output of ./tw. It is currently set to use an Nwords value of 100, but you can edit the script to use a different value if you want. Run it with the command
+
+sh check.sh 
+
+The check.sh script requires that you have the data directory/symlink. If you don't have it, refer to the Setting Up section.
+
+You are not required to understand what all of the commands in check.sh are doing, but they might just pique your curiosity to go and have a look at the Unix Programmers Manual (the man command).
+
+At this point, you might ask "If we can do this with a pipeline of Unix tools, why are we bothering to write our own program?". One reason: it'll be much faster. Another reason: to give you practice with implementing trees.
+
+
+ENTER THIS COMMAND INTO THE TERMINAL: sh check.sh 

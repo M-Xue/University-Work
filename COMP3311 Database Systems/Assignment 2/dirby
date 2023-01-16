@@ -1,0 +1,91 @@
+#!/usr/bin/python3
+
+# COMP3311 22T3 Assignment 2
+# Print a list of movies directed by a given person
+
+import sys
+import psycopg2
+import helpers
+
+### Globals
+
+db = None
+usage = f"Usage: {sys.argv[0]} FullName"
+
+### Command-line args
+
+if len(sys.argv) < 2:
+   print(usage)
+   exit(1)
+
+# process the command-line args ...
+
+### Queries
+
+### Manipulating database
+
+conn = None
+cur = None
+name = sys.argv[1]
+try:
+   # your code goes here
+   conn = psycopg2.connect("dbname=ass2")
+   cur = conn.cursor()
+
+   # * Getting the number of people with the given name
+   cur.execute("""
+      select * 
+      from People p
+      where p.name=%s;
+   """, (name,))
+   numPpl = cur.rowcount
+   cur.fetchall()
+   
+   #  * Getting the number of directors with the given name
+   cur.execute("""
+      select p.id 
+      from People p
+         join Principals pp on (p.id=pp.person) 
+      where pp.job='director' and p.name=%s
+      order by p.id;
+   """, (name,))
+   numDirectors = cur.rowcount
+
+   if numPpl == 0:
+      # * A message that the person does not exist in the database
+      print("No such person")
+   elif numDirectors == 0:
+      # * If none of the matching people are directors
+      if numPpl == 1:
+         print(name + " has not directed any movies")
+      elif numPpl > 1:
+         print("None of the people called " + name + " has directed any films")
+
+   else:
+      directorId = str(cur.fetchone()[0]) # * Get the director ID first in order
+      cur.fetchall()
+
+      cur.execute("""
+         select m.title, m.YEAR 
+         from People p
+            join Principals pp on (p.id=pp.person)
+            join Movies m on (pp.movie=m.id)
+         where pp.job='director' and p.id=%s
+         order by m.YEAR, m.title;
+      """, (directorId,))
+      # The previous two checks make sure that the given name is a director. This query will return films since it's using the Principals to confirmed the person is a director and every Principals tuple has a movie.
+
+
+      for t in cur.fetchall():
+         print(t[0] + " (" + str(t[1]) + ")")
+
+except Exception as err:
+   print("DB error: ", err)
+finally:
+   if cur:
+      cur.close()
+   if conn:
+      conn.close()
+   if db:
+      db.close()
+
