@@ -13,7 +13,7 @@ This course aims to introduce students to the foundational principles of designi
 
 ## Assignments
 
-### [Assignment 1: Back in Blackout](./Assignment%201%20Back%20in%20Blackout/Full%20Assignment/README.md)
+### [Assignment 1: Back in Blackout](./Assignment%201%20Back%20in%20Blackout)
 
 This assessment aims to provide design experience for a non-trivial system. Students architect and model how multiple satellites will communicate and function with various devices. The form of communication that will be simulated is a simplified version of the modern internet, simply just file transfer. Users can either upload a file to a satellite from a device, download a file from a satellite to a device, or send a file from a satellite to a satellite.
 
@@ -27,7 +27,7 @@ The solution adopts an Object-Oriented approach that utilises concepts such as a
 - Gain hands on experience with the Java language and Java libraries
 - Develop skills in critical thinking and problem solving on an extended piece of work
 
-### [Major Project](./Major%20Project%20Dungeon%20Mania/README.md)
+### [Major Project](./Major%20Project%20Dungeon%20Mania)
 
 Created the backend for a broswer game using OOP. All game logic is in the backend, the frontend only handling sprites.
 
