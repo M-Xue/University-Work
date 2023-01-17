@@ -9,7 +9,7 @@ This course provides an introduction to software engineering principles: basic s
 - software engineering methodologies, processes, measurements, tools and techniques
 - Web-based system architecture and development practices on Web platforms
 
-## [Major Project](./project-backend/README.md)
+## [Major Project](./Major%20Project)
 
 Aims:
 
